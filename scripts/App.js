@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import 'style!raw!react-image-gallery/build/image-gallery.css';
+import 'style!raw!./gallery.css';
 import ImageGallery from 'react-image-gallery';
 import victims from 'json!yaml!./victims.yml';
 
