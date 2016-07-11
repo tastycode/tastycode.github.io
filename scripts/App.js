@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import 'style!raw!./../node_modules/react-image-gallery/build/image-gallery.css';
+import 'style!raw!react-image-gallery/build/image-gallery.css';
 import ImageGallery from 'react-image-gallery';
 import victims from 'json!yaml!./victims.yml';
 
