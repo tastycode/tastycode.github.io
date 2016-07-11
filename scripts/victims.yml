@@ -1,0 +1,8 @@
+---
+- name: Alton Sterling
+  image: altonsterling.jpg
+- name: Michael Brown
+  image: michaelbrown.jpg
+- name: Tamir Rice
+  image: tamirrice.jpg
+
