@@ -6,7 +6,8 @@ import victims from 'json!yaml!./victims.yml';
 function victimsToGallery() {
   return victims.map( (victim) => {
     return {
-      original: require(`./../images/${victim.image}`)
+      original: require(`./../images/${victim.image}`),
+      description: victim.name
     }
   });
 }
@@ -26,6 +27,10 @@ export default class App extends Component {
     this._imageGallery.pause()
   }
 
+  handleFullscreen() {
+    this._imageGallery.fullScreen()
+  }
+
   render() {
     return (
       <div>
@@ -33,9 +38,11 @@ export default class App extends Component {
         ref={i => this._imageGallery = i}
         items={images}
         slideInterval={2000}
+        lazyLoad={true}
         onImageLoad={this.handleImageLoad}/>
         <button onClick={this.handlePlay.bind(this)}>Play</button>
         <button onClick={this.handlePause.bind(this)}>Pause</button>
+        <button onClick={this.handleFullscreen.bind(this)}>Fullscreen</button>
       </div>
     );
   }
