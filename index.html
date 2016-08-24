@@ -1,10 +1,75 @@
 <html>
-<head>
-    <title>Say their name</title>
-    <link rel="shortcut icon" href="">
-</head>
-<body>
-    <div id='root'></div>
-    <script src="/static/bundle.js"></script>
-</body>
+  <head>
+    <script type="text/javascript" src="/fetch.js"></script>
+    <style>
+      body {
+        background-color: #212121;
+      }
+
+      .victimImage:not(.active) {
+        display: none;
+      }
+
+      .victimImage {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="victims">
+    </div>
+  </body>
+
+
+  <script>
+    function rotateActiveImage() {
+      var images = Array.from(document.querySelectorAll('.victimImage'));
+      var activeImage = document.querySelector('.victimImage.active');
+      if (activeImage) {
+        var index = images.indexOf(activeImage);
+        var newIndex = index + 1;
+        if (newIndex > (images.length - 1)) {
+          newIndex = 0;
+        }
+        var nextActiveImage = images[newIndex];
+        activeImage.className = 'victimImage';
+        nextActiveImage.className = 'victimImage active';
+      } else {
+        var img = images[0]
+        img.className = 'victimImage active';
+      }
+    }
+
+    function imageFromVictim(victim, index) {
+      var transitionSeconds = index * 3;
+      var img = document.createElement('img');
+      img.src = "/images/" + victim.image;
+      img.className = "victimImage";
+      img.style.animationDelay = transitionSeconds + 's';
+      return img;
+    }
+
+    function fetchVictims() {
+      return fetch('/victims.js')
+      .then(function(response) {
+        return response.json();
+      })
+    }
+
+    fetchVictims()
+    .then(function(victims) {
+      return victims.map(imageFromVictim);
+    })
+    .then(function(imageElements) {
+      var victimsContainer = document.querySelector('.victims');
+      victimsContainer.innerHTML = '';
+      imageElements.forEach(function(imageElement) {
+        victimsContainer.appendChild(imageElement);
+      });
+      setInterval(rotateActiveImage, 7000);
+    });
+
+  </script>
 </html>
